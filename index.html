@@ -1,0 +1,186 @@
+<!DOCTYPE html>  <html lang="ar" dir="rtl">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Level One - Kick Streamers</title>  
+    <style>  
+        * {  
+            margin: 0;  
+            padding: 0;  
+            box-sizing: border-box;  
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+        }  
+        body {  
+            background-color: #0b0e14;  
+            color: #ffffff;  
+            min-height: 100vh;  
+            padding: 20px;  
+        }  
+        header {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            background: #121824;  
+            padding: 15px 30px;  
+            border-radius: 20px;  
+            border: 1px solid #1f293d;  
+            margin-bottom: 30px;  
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);  
+        }  
+        .header-side img {  
+            height: 65px;  
+            object-fit: contain;  
+        }  
+        .header-center img {  
+            height: 80px;  
+            object-fit: contain;  
+        }  
+        .grid-container {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  
+            gap: 20px;  
+        }  
+        .card {  
+            background: #121824;  
+            border: 1px solid #1f293d;  
+            border-radius: 18px;  
+            padding: 16px;  
+            display: flex;  
+            flex-direction: column;  
+            align-items: center;  
+            transition: 0.3s ease;  
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);  
+        }  
+        .card:hover {  
+            border-color: #ff5722;  
+            transform: translateY(-4px);  
+        }  
+        .channel-header {  
+            display: flex;  
+            align-items: center;  
+            width: 100%;  
+            margin-bottom: 12px;  
+            gap: 12px;  
+        }  
+        .channel-logo {  
+            width: 55px;  
+            height: 55px;  
+            border-radius: 50%;  
+            object-fit: cover;  
+            border: 2px solid #ff5722;  
+            background: #000;  
+        }  
+        .channel-name {  
+            font-size: 18px;  
+            font-weight: bold;  
+            color: #ffffff;  
+            letter-spacing: 0.5px;  
+        }  
+        .live-screen {  
+            width: 100%;  
+            height: 160px;  
+            background: #000;  
+            border-radius: 12px;  
+            overflow: hidden;  
+            position: relative;  
+            display: flex;  
+            align-items: center;  
+            justify-content: center;  
+            border: 1px solid #2a3447;  
+        }  
+        .live-screen img {  
+            width: 100%;  
+            height: 100%;  
+            object-fit: cover;  
+            filter: brightness(0.75);  
+        }  
+        .live-badge {  
+            position: absolute;  
+            top: 10px;  
+            right: 10px;  
+            background: #ff2222;  
+            color: white;  
+            font-size: 11px;  
+            padding: 4px 10px;  
+            border-radius: 6px;  
+            font-weight: bold;  
+        }  
+        .watch-btn {  
+            margin-top: 12px;  
+            width: 100%;  
+            background: #ff5722;  
+            color: white;  
+            border: none;  
+            padding: 10px;  
+            border-radius: 10px;  
+            font-weight: bold;  
+            cursor: pointer;  
+            transition: 0.2s;  
+            text-align: center;  
+            text-decoration: none;  
+            display: inline-block;  
+        }  
+        .watch-btn:hover {  
+            background: #e64a19;  
+        }  
+    </style>  
+</head>  
+<body>  <!-- الهيدر العلوي -->  
+<header>  
+    <div class="header-side">  
+        <!-- شعار لفل ون (يمين) -->  
+        <img src="https://i.imgur.com/8Q965zF.png" alt="Level One">  
+    </div>  
+    <div class="header-center">  
+        <!-- شعار MT (منتصف) -->  
+        <img src="https://i.imgur.com/rN55E2d.png" alt="MT">  
+    </div>  
+    <div class="header-side">  
+        <!-- شعار اليد (يسار) -->  
+        <img src="https://i.imgur.com/tTq3tG2.png" alt="Hand">  
+    </div>  
+</header>  
+
+<!-- شبكة القنوات والشعارات -->  
+<main class="grid-container" id="channelsGrid"></main>  
+
+<script>  
+    const streamers = [  
+        { name: "abuswe7l", url: "https://kick.com/abuswe7l", img: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=150" },  
+        { name: "firas", url: "https://kick.com/firas", img: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" },  
+        { name: "majah92", url: "https://kick.com/majah92", img: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150" },  
+        { name: "brof2", url: "https://kick.com/brof2", img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150" },  
+        { name: "fahad", url: "https://kick.com/fahad", img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150" },  
+        { name: "ab2dy", url: "https://kick.com/ab2dy", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150" },  
+        { name: "muvxn", url: "https://kick.com/muvxn", img: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=150" },  
+        { name: "xlxwi", url: "https://kick.com/xlxwi", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" },  
+        { name: "azzz", url: "https://kick.com/azzz", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" },  
+        { name: "tmnaa", url: "https://kick.com/tmnaa", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150" },  
+        { name: "sxb", url: "https://kick.com/sxb", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150" },  
+        { name: "ymt3b", url: "https://kick.com/ymt3b", img: "https://images.unsplash.com/photo-1628157582853-a796fa650a6a?w=150" },  
+        { name: "oflag", url: "https://kick.com/oflag", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" },  
+        { name: "iabs", url: "https://kick.com/iabs", img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" }  
+    ];  
+
+    const grid = document.getElementById('channelsGrid');  
+
+    streamers.forEach(s => {  
+        const card = document.createElement('div');  
+        card.className = 'card';  
+        card.innerHTML = `  
+            <div class="channel-header">  
+                <img src="${s.img}" alt="${s.name}" class="channel-logo">  
+                <span class="channel-name">${s.name}</span>  
+            </div>  
+            <div class="live-screen">  
+                <span class="live-badge">LIVE</span>  
+                <img src="${s.img}" alt="stream view">  
+            </div>  
+            <a href="${s.url}" target="_blank" class="watch-btn">مشاهدة البث المباشر</a>  
+        `;  
+        grid.appendChild(card);  
+    });  
+</script>
+
+</body>  
+</html>  
